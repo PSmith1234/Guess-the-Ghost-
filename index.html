@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Ghost</title>
+    <style>
+        body {
+            color: black;
+            background-color: orange;
+        }
+        h1 {
+            color: purple;
+        }
+        p, button {
+            color: black;
+        }
+        button {
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Guess the Ghost Game!</h1>
+    <p>Guess the ghost's name:</p>
+    <input type="text" id="guessInput">
+    <button onclick="guessTheGhost()">Guess</button>
+    <p id="message"></p>
+
+    <script>
+        var ghostNames = ["Casper", "Spooky", "Boo", "Phantom", "Specter"];
+        var chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)];
+        var guessCount = 0;
+
+        function guessTheGhost() {
+            var guess = document.getElementById("guessInput").value;
+            var message;
+
+            if (guess.toLowerCase() === chosenGhost.toLowerCase()) {
+                message = "Congratulations! You guessed the ghost's name!";
+                guessCount = 0;
+            } else {
+                guessCount++;
+                if (guessCount >= 3) {
+                    message = "Sorry, that's not the ghost's name. Here's a hint: The ghost's name starts with '" + chosenGhost.charAt(0) + "'. Try again!";
+                } else {
+                    message = "Sorry, that's not the ghost's name. Try again!";
+                }
+            }
+
+            document.getElementById("message").innerHTML = message;
+        }
+    </script>
+</body>
+</html>

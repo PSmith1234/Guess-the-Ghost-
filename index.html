@@ -20,6 +20,7 @@
 </head>
 <body>
     <h1>Welcome to the Guess the Ghost Game!</h1>
+    <p id="hint"></p>
     <p>Guess the ghost's name:</p>
     <input type="text" id="guessInput">
     <button onclick="guessTheGhost()">Guess</button>
@@ -36,6 +37,9 @@
         var chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)];
         var hintIndex = 0;
 
+        // Display the first hint before any guess is made
+        document.getElementById("hint").innerHTML = chosenGhost.hints[hintIndex];
+
         function guessTheGhost() {
             var guess = document.getElementById("guessInput").value;
             var message;
@@ -44,14 +48,17 @@
                 message = "Congratulations! You guessed the ghost's name!";
                 hintIndex = 0; // Reset hintIndex
                 chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)]; // Choose a new ghost name
+                document.getElementById("hint").innerHTML = chosenGhost.hints[hintIndex]; // Display the first hint for the new ghost name
             } else {
+                hintIndex++;
                 if (hintIndex < chosenGhost.hints.length) {
-                    message = chosenGhost.hints[hintIndex];
-                    hintIndex++;
+                    document.getElementById("hint").innerHTML = chosenGhost.hints[hintIndex];
+                    message = "Sorry, that's not the ghost's name. Try again!";
                 } else {
                     message = "Sorry, that's not the ghost's name. The correct answer was '" + chosenGhost.name + "'. Let's try another one!";
                     hintIndex = 0; // Reset hintIndex
                     chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)]; // Choose a new ghost name
+                    document.getElementById("hint").innerHTML = chosenGhost.hints[hintIndex]; // Display the first hint for the new ghost name
                 }
             }
 

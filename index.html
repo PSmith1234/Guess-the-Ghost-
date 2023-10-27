@@ -35,14 +35,15 @@
             var message;
 
             if (guess.toLowerCase() === chosenGhost.toLowerCase()) {
-                message = "Congratulations! You guessed the ghost's name!";
-                guessCount = 0;
+                message = "Congratulations stinky! You guessed the ghost's name!";
+                guessCount = 0; // Reset guessCount
+                chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)]; // Choose a new ghost name
             } else {
                 guessCount++;
                 if (guessCount >= 3) {
-                    message = "Sorry, that's not the ghost's name. Here's a hint: The ghost's name starts with '" + chosenGhost.charAt(0) + "'. Try again!";
+                    message = "Sorry, that's not the ghost's name. Here's a hint you idiot: The ghost's name starts with '" + chosenGhost.charAt(0) + "'. Try again!";
                 } else {
-                    message = "Sorry, that's not the ghost's name. Try again!";
+                    message = "Sorry, that's not the ghost's name. Try again, fool!";
                 }
             }
 

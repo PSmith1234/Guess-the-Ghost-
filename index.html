@@ -26,24 +26,32 @@
     <p id="message"></p>
 
     <script>
-        var ghostNames = ["Casper", "Spooky", "Boo", "Phantom", "Specter"];
+        var ghostNames = [
+            {"name": "Phantom", "hints": ["Leaves behind slimy ectoplasm", "Starts with P", "Something apparent to sense but with no substantial existence"]},
+            {"name": "Casper", "hints": ["Popular ghost movie from 1995", "Starts with C", "Is friendly"]},
+            {"name": "Boo", "hints": ["When someone says this you scream!", "Starts with B", "Associated with ghosts"]},
+            {"name": "Pumpkin", "hints": ["Orange and round", "Starts with P", "Popular on Halloween"]},
+            {"name": "Specter", "hints": ["Apparition", "Starts with S", "An unwelcome or disturbing presence"]}
+        ];
         var chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)];
-        var guessCount = 0;
+        var hintIndex = 0;
 
         function guessTheGhost() {
             var guess = document.getElementById("guessInput").value;
             var message;
 
-            if (guess.toLowerCase() === chosenGhost.toLowerCase()) {
-                message = "Congratulations stinky! You guessed the ghost's name!";
-                guessCount = 0; // Reset guessCount
+            if (guess.toLowerCase() === chosenGhost.name.toLowerCase()) {
+                message = "Congratulations! You guessed the ghost's name!";
+                hintIndex = 0; // Reset hintIndex
                 chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)]; // Choose a new ghost name
             } else {
-                guessCount++;
-                if (guessCount >= 3) {
-                    message = "Sorry, that's not the ghost's name. Here's a hint you idiot: The ghost's name starts with '" + chosenGhost.charAt(0) + "'. Try again!";
+                if (hintIndex < chosenGhost.hints.length) {
+                    message = chosenGhost.hints[hintIndex];
+                    hintIndex++;
                 } else {
-                    message = "Sorry, that's not the ghost's name. Try again, fool!";
+                    message = "Sorry, that's not the ghost's name. The correct answer was '" + chosenGhost.name + "'. Let's try another one!";
+                    hintIndex = 0; // Reset hintIndex
+                    chosenGhost = ghostNames[Math.floor(Math.random() * ghostNames.length)]; // Choose a new ghost name
                 }
             }
 
